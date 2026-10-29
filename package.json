@@ -1,0 +1,34 @@
+{
+  "name": "@get-out-there/budget",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Split trip and group costs: log who paid for what and who shares it, then settle up in the fewest transfers. Embedded in get-out-there; also deployed standalone to GitHub Pages from demo/.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "dev": "vite --config demo/vite.config.ts",
+    "build:demo": "vite build --config demo/vite.config.ts && touch docs/.nojekyll",
+    "ts-check": "tsc --noEmit",
+    "test": "node --test src/lib/*.test.ts"
+  },
+  "peerDependencies": {
+    "lucide-react": ">=0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "@types/node": "^20",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.7.0",
+    "vite": "^7.0.0"
+  }
+}
