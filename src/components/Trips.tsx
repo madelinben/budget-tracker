@@ -54,11 +54,23 @@ export function Trips({ data, onChange, onOpen }: Props) {
         <h3 className="font-semibold">New holiday, night out or house share</h3>
         <label className="flex flex-col gap-1 text-sm font-semibold">
           Name
-          <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Lake District 2027" className={field} required />
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Lake District 2027"
+            className={field}
+            required
+          />
         </label>
         <label className="flex flex-col gap-1 text-sm font-semibold">
           People, separated by commas
-          <input value={people} onChange={(e) => setPeople(e.target.value)} placeholder="Sam, Alex, Jo" className={field} required />
+          <input
+            value={people}
+            onChange={(e) => setPeople(e.target.value)}
+            placeholder="Sam, Alex, Jo"
+            className={field}
+            required
+          />
         </label>
         <label className="flex flex-col gap-1 text-sm font-semibold">
           Currency

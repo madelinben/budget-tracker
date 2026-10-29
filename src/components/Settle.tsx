@@ -16,7 +16,15 @@ export function Settle({ trip, onChange }: { trip: Trip; onChange: (t: Trip) => 
     onChange({
       ...trip,
       expenses: [
-        { id: crypto.randomUUID(), description: "Settle up", amount, paidBy: from, splitWith: [to], date: new Date().toISOString(), transfer: true },
+        {
+          id: crypto.randomUUID(),
+          description: "Settle up",
+          amount,
+          paidBy: from,
+          splitWith: [to],
+          date: new Date().toISOString(),
+          transfer: true,
+        },
         ...trip.expenses,
       ],
     });
@@ -68,7 +76,11 @@ export function Settle({ trip, onChange }: { trip: Trip; onChange: (t: Trip) => 
           </ul>
         )}
         {transfers.length > 0 && (
-          <button type="button" onClick={copy} className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-sky-800 underline hover:no-underline">
+          <button
+            type="button"
+            onClick={copy}
+            className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-sky-800 underline hover:no-underline"
+          >
             <Copy size={14} aria-hidden="true" />
             {copied ? "Copied" : "Copy summary for the group chat"}
           </button>
@@ -78,12 +90,20 @@ export function Settle({ trip, onChange }: { trip: Trip; onChange: (t: Trip) => 
       <div className={card}>
         <h3 className="mb-2 font-semibold">Balances</h3>
         <table className="w-full text-sm">
-          <caption className="sr-only">Each person's share of the costs and what they are owed or owe</caption>
+          <caption className="sr-only">
+            Each person's share of the costs and what they are owed or owe
+          </caption>
           <thead className="text-slate-600">
             <tr>
-              <th scope="col" className="py-1 text-left font-semibold">Person</th>
-              <th scope="col" className="py-1 text-right font-semibold">Their share</th>
-              <th scope="col" className="py-1 text-right font-semibold">Balance</th>
+              <th scope="col" className="py-1 text-left font-semibold">
+                Person
+              </th>
+              <th scope="col" className="py-1 text-right font-semibold">
+                Their share
+              </th>
+              <th scope="col" className="py-1 text-right font-semibold">
+                Balance
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -91,9 +111,13 @@ export function Settle({ trip, onChange }: { trip: Trip; onChange: (t: Trip) => 
               const n = net.get(p.id) ?? 0;
               return (
                 <tr key={p.id} className="border-t border-slate-100">
-                  <th scope="row" className="py-2 text-left font-semibold">{p.name}</th>
+                  <th scope="row" className="py-2 text-left font-semibold">
+                    {p.name}
+                  </th>
                   <td className="py-2 text-right tabular-nums">{money(spent.get(p.id) ?? 0)}</td>
-                  <td className={`py-2 text-right font-bold tabular-nums ${n > 0 ? "text-emerald-800" : n < 0 ? "text-rose-700" : ""}`}>
+                  <td
+                    className={`py-2 text-right font-bold tabular-nums ${n > 0 ? "text-emerald-800" : n < 0 ? "text-rose-700" : ""}`}
+                  >
                     {n > 0 ? `is owed ${money(n)}` : n < 0 ? `owes ${money(-n)}` : "square"}
                   </td>
                 </tr>

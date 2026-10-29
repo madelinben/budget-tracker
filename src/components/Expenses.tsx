@@ -52,7 +52,12 @@ export function Expenses({ trip, onChange }: { trip: Trip; onChange: (t: Trip) =
         <div className="grid grid-cols-[1fr_8rem] gap-2">
           <label className="flex flex-col gap-1 text-sm font-semibold">
             What for
-            <input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Dinner" className={field} />
+            <input
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Dinner"
+              className={field}
+            />
           </label>
           <label className="flex flex-col gap-1 text-sm font-semibold">
             Amount
@@ -92,7 +97,12 @@ export function Expenses({ trip, onChange }: { trip: Trip; onChange: (t: Trip) =
                 key={p.id}
                 className="flex min-h-11 cursor-pointer items-center gap-2 rounded-full px-3 text-sm font-semibold ring-1 ring-slate-300 has-checked:bg-sky-50 has-checked:ring-sky-700 has-focus-visible:outline-2 has-focus-visible:outline-sky-700"
               >
-                <input type="checkbox" checked={splitWith.includes(p.id)} onChange={() => toggle(p.id)} className="size-4 accent-sky-700" />
+                <input
+                  type="checkbox"
+                  checked={splitWith.includes(p.id)}
+                  onChange={() => toggle(p.id)}
+                  className="size-4 accent-sky-700"
+                />
                 {p.name}
               </label>
             ))}
@@ -101,7 +111,9 @@ export function Expenses({ trip, onChange }: { trip: Trip; onChange: (t: Trip) =
         <button type="submit" disabled={!pence || !splitWith.length} className={primary}>
           <Plus size={16} aria-hidden="true" />
           Add {pence ? formatMoney(pence, trip.currency) : "expense"}
-          {pence && splitWith.length ? ` · ${formatMoney(Math.ceil(pence / splitWith.length), trip.currency)} each` : ""}
+          {pence && splitWith.length
+            ? ` · ${formatMoney(Math.ceil(pence / splitWith.length), trip.currency)} each`
+            : ""}
         </button>
       </form>
 
@@ -109,8 +121,17 @@ export function Expenses({ trip, onChange }: { trip: Trip; onChange: (t: Trip) =
         <label htmlFor="new-person" className="sr-only">
           Add someone to {trip.name}
         </label>
-        <input id="new-person" value={newPerson} onChange={(e) => setNewPerson(e.target.value)} placeholder="Someone joined late?" className={`${field} flex-1`} />
-        <button type="submit" className="inline-flex min-h-11 items-center gap-1 rounded-xl px-3 text-sm font-semibold ring-1 ring-slate-300 hover:bg-white">
+        <input
+          id="new-person"
+          value={newPerson}
+          onChange={(e) => setNewPerson(e.target.value)}
+          placeholder="Someone joined late?"
+          className={`${field} flex-1`}
+        />
+        <button
+          type="submit"
+          className="inline-flex min-h-11 items-center gap-1 rounded-xl px-3 text-sm font-semibold ring-1 ring-slate-300 hover:bg-white"
+        >
           <UserPlus size={16} aria-hidden="true" />
           Add person
         </button>
@@ -122,7 +143,9 @@ export function Expenses({ trip, onChange }: { trip: Trip; onChange: (t: Trip) =
             <li key={e.id} className={`${card} flex items-center gap-3 p-3`}>
               <div className="min-w-0 flex-1">
                 <p className="font-bold">
-                  {e.transfer ? `${name.get(e.paidBy)} paid ${name.get(e.splitWith[0] ?? "")}` : e.description}
+                  {e.transfer
+                    ? `${name.get(e.paidBy)} paid ${name.get(e.splitWith[0] ?? "")}`
+                    : e.description}
                 </p>
                 <p className="truncate text-sm text-slate-600">
                   {e.transfer
@@ -134,10 +157,14 @@ export function Expenses({ trip, onChange }: { trip: Trip; onChange: (t: Trip) =
                       }`}
                 </p>
               </div>
-              <span className="font-black tabular-nums">{formatMoney(e.amount, trip.currency)}</span>
+              <span className="font-black tabular-nums">
+                {formatMoney(e.amount, trip.currency)}
+              </span>
               <button
                 type="button"
-                onClick={() => onChange({ ...trip, expenses: trip.expenses.filter((x) => x.id !== e.id) })}
+                onClick={() =>
+                  onChange({ ...trip, expenses: trip.expenses.filter((x) => x.id !== e.id) })
+                }
                 aria-label={`Delete ${e.description}`}
                 className="grid size-11 place-items-center rounded-xl text-rose-700 hover:bg-rose-50 focus-visible:outline-2 focus-visible:outline-rose-700"
               >

@@ -54,7 +54,7 @@ export function balances(trip: Trip): Map<string, number> {
     if (!e.splitWith.length) continue;
     add(e.paidBy, e.amount);
     const shares = splitPence(e.amount, e.splitWith.length);
-    e.splitWith.forEach((id, i) => add(id, -(shares[i] ?? 0)));
+    for (const [i, id] of e.splitWith.entries()) add(id, -(shares[i] ?? 0));
   }
   return net;
 }
@@ -65,7 +65,7 @@ export function spending(trip: Trip): Map<string, number> {
   for (const e of trip.expenses) {
     if (e.transfer) continue;
     const shares = splitPence(e.amount, e.splitWith.length);
-    e.splitWith.forEach((id, i) => out.set(id, (out.get(id) ?? 0) + (shares[i] ?? 0)));
+    for (const [i, id] of e.splitWith.entries()) out.set(id, (out.get(id) ?? 0) + (shares[i] ?? 0));
   }
   return out;
 }
@@ -104,5 +104,7 @@ export function formatMoney(pence: number, currency: string): string {
 export function parseBudget(raw: unknown): BudgetData | null {
   if (typeof raw !== "object" || raw === null) return null;
   const d = raw as Partial<BudgetData>;
-  return d.version === 1 && Array.isArray(d.trips) ? { version: 1, trips: d.trips, activeTripId: d.activeTripId ?? null } : null;
+  return d.version === 1 && Array.isArray(d.trips)
+    ? { version: 1, trips: d.trips, activeTripId: d.activeTripId ?? null }
+    : null;
 }

@@ -8,7 +8,14 @@ const trip: Trip = {
   currency: "GBP",
   people: ["a", "b", "c"].map((id) => ({ id, name: id })),
   expenses: [
-    { id: "1", description: "Cabin", amount: 30000, paidBy: "a", splitWith: ["a", "b", "c"], date: "" },
+    {
+      id: "1",
+      description: "Cabin",
+      amount: 30000,
+      paidBy: "a",
+      splitWith: ["a", "b", "c"],
+      date: "",
+    },
     { id: "2", description: "Fuel", amount: 1001, paidBy: "b", splitWith: ["b", "c"], date: "" },
   ],
 };
@@ -23,7 +30,10 @@ test("splitPence never loses a penny", () => {
 
 test("balances sum to zero and settle clears them", () => {
   const net = balances(trip);
-  assert.equal([...net.values()].reduce((a, b) => a + b), 0);
+  assert.equal(
+    [...net.values()].reduce((a, b) => a + b),
+    0
+  );
   assert.deepEqual(Object.fromEntries(net), { a: 20000, b: -9500, c: -10500 });
   const transfers = settle(net);
   assert.deepEqual(transfers, [
@@ -34,7 +44,15 @@ test("balances sum to zero and settle clears them", () => {
     ...trip,
     expenses: [
       ...trip.expenses,
-      ...transfers.map((t, i) => ({ id: `s${i}`, description: "", amount: t.amount, paidBy: t.from, splitWith: [t.to], date: "", transfer: true })),
+      ...transfers.map((t, i) => ({
+        id: `s${i}`,
+        description: "",
+        amount: t.amount,
+        paidBy: t.from,
+        splitWith: [t.to],
+        date: "",
+        transfer: true,
+      })),
     ],
   };
   assert.deepEqual(settle(balances(settled)), []);

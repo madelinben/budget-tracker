@@ -34,7 +34,8 @@ export function BudgetApp({ beforeExport }: { beforeExport?: BeforeExport }) {
     save(KEY, next);
   };
   const trip = data.trips.find((t) => t.id === data.activeTripId) ?? null;
-  const setTrip = (next: Trip) => update({ ...data, trips: data.trips.map((t) => (t.id === next.id ? next : t)) });
+  const setTrip = (next: Trip) =>
+    update({ ...data, trips: data.trips.map((t) => (t.id === next.id ? next : t)) });
 
   if (!ready) return <div className="h-full animate-pulse bg-slate-100" />;
 
@@ -43,7 +44,9 @@ export function BudgetApp({ beforeExport }: { beforeExport?: BeforeExport }) {
       <div className="min-h-0 flex-1 overflow-y-auto">
         <div className="mx-auto flex max-w-2xl flex-col gap-5 p-4">
           {trip && tab !== "trips" && (
-            <p className="text-sm font-semibold uppercase tracking-wide text-sky-800">{trip.name}</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-sky-800">
+              {trip.name}
+            </p>
           )}
           {tab === "trips" && (
             <>
@@ -73,7 +76,10 @@ export function BudgetApp({ beforeExport }: { beforeExport?: BeforeExport }) {
           {tab === "settle" && trip && <Settle trip={trip} onChange={setTrip} />}
         </div>
       </div>
-      <nav aria-label="Budget Tracker" className="grid grid-cols-3 gap-1 border-t border-slate-200 bg-white p-1.5">
+      <nav
+        aria-label="Budget Tracker"
+        className="grid grid-cols-3 gap-1 border-t border-slate-200 bg-white p-1.5"
+      >
         {TABS.map(({ id, label, Icon }) => (
           <button
             key={id}
